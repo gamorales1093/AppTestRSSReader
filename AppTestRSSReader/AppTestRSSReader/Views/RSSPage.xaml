@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTestRSSReader.Views.RSSPage"
+             xmlns:vm="clr-namespace:AppTestRSSReader.ViewModels" 
+             xmlns:Cell="clr-namespace:AppTestRSSReader.Views.CustomViews"
+             Title="Noticias"
+             BackgroundColor="LightBlue">
+
+    <Grid>
+
+        <StackLayout Margin="1" HeightRequest="10">
+
+            <ListView x:Name="FeedListView" CachingStrategy="RecycleElement" 
+                          IsPullToRefreshEnabled="True"
+                          SelectedItem="{Binding SelectedItem}"
+                          ItemsSource="{Binding NewsList}" 
+                          IsRefreshing="{Binding IsRefreshing}"
+                          RefreshCommand="{Binding RefreshCommand}"
+                          HasUnevenRows="true"                           
+                          SeparatorVisibility="None">
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <Cell:CardNewsView ></Cell:CardNewsView>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

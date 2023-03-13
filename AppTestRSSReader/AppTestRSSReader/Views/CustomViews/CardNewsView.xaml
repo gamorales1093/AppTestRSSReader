@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+          xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+          xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+          x:Class="AppTestRSSReader.Views.CustomViews.CardNewsView"
+          xmlns:converter="clr-namespace:AppTestRSSReader.Converters" xmlns:viewmo="clr-namespace:AppTestRSSReader.ViewModels" xmlns:ds="clr-namespace:AppTestRSSReader.Controls"
+          x:Name="cardNewsView">
+
+    <ViewCell.BindingContext>
+        <viewmo:RSSViewModel x:Name="viewModel"/>
+    </ViewCell.BindingContext>
+    <StackLayout Orientation="Horizontal" >
+
+        <ds:CustomShadowFrame HasShadow="True" CornerRadius="10" Margin="5" BackgroundColor="White" >
+            
+            <StackLayout Orientation="Horizontal"  Margin="5,0,0,0">
+                <ffimageloading:CachedImage HorizontalOptions="Center" VerticalOptions="Center"
+            WidthRequest="128"  Aspect="AspectFit"
+            DownsampleWidth="150"
+            DownsampleToViewSize="True"
+            Source = "{Binding imageURL}">
+                </ffimageloading:CachedImage>
+                <StackLayout Orientation="Vertical">
+                    <Label  Text="{Binding title}" MinimumHeightRequest="20" TextColor="Black" Margin="2" FontSize="14" LineBreakMode="WordWrap" FontAttributes="Bold"/>
+                    <Label  Text="{Binding description}" MinimumHeightRequest="20" TextColor="Black" Margin="2" FontSize="12" LineBreakMode="WordWrap" FontAttributes="Italic"/>
+                    <buttons:SfButton
+                        Command="{Binding SetFavouriteCommand,Source={x:Reference viewModel}}"
+                        CommandParameter="{Binding}"
+                        HorizontalOptions="End" VerticalOptions="Center"
+            Style="{StaticResource IconButtonStyle}"
+            Text="{StaticResource Rating }"
+            TextColor="LightSalmon"
+             />
+                </StackLayout>
+            </StackLayout>
+
+        </ds:CustomShadowFrame>
+
+
+    </StackLayout>
+</ViewCell>

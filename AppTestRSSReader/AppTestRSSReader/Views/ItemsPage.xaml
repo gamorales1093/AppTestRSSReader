@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTestRSSReader.Views.ItemsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:AppTestRSSReader.ViewModels"  
+             xmlns:model="clr-namespace:AppTestRSSReader.Models" 
+             xmlns:ds="clr-namespace:AppTestRSSReader.Controls"
+             x:Name="BrowseItemsPage"
+             BackgroundColor="LightBlue">
+
+    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Items}"
+                SelectionMode="Single"
+                >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" Margin="10" x:DataType="model:NewsData">
+                        <Label Text="{Binding title}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource TitleLabelStyle}"  />
+                        <Label Text="{Binding description }" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource DescriptionLabelStyle}" />
+                        <BoxView Color="White" HorizontalOptions="FillAndExpand" Margin="5,5,5,5" HeightRequest="3"></BoxView>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}">
+                            </TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>
